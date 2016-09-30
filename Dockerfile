@@ -1,4 +1,4 @@
-FROM lsiodev/nginx-alpine-testbed.armhf
+FROM lsiobase/alpine.nginx.armhf
 MAINTAINER aptalca
 
 # environment settings
