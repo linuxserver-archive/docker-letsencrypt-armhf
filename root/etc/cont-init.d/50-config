@@ -1,5 +1,12 @@
 #!/usr/bin/with-contenv bash
 
+# check to make sure that the required variables are set
+# shellcheck disable=SC2153
+if [ -z "$URL" ] || [ -z "$EMAIL" ]; then
+  echo "Please pass your URL and EMAIL as environment variables in your docker run command. See docker info for more details."
+  exit 1
+fi
+
 # make our folders and links
 mkdir -p \
 	/config/{log/letsencrypt,log/fail2ban,etc/letsencrypt,fail2ban,crontabs} \
@@ -26,10 +33,12 @@ cp /config/crontabs/* /etc/crontabs/
 
 # create original config file if it doesn't exist
 if [ ! -f "/config/donoteditthisfile.conf" ]; then
+# shellcheck disable=SC2153
   echo -e "ORIGURL=\"$URL\" ORIGSUBDOMAINS=\"$SUBDOMAINS\" ORIGONLY_SUBDOMAINS=\"$ONLY_SUBDOMAINS\" ORIGDHLEVEL=\"$DHLEVEL\"" > /config/donoteditthisfile.conf
 fi
 
 # load original config settings
+# shellcheck disable=SC1091
 . /config/donoteditthisfile.conf
 
 # compare dhparams existence and level, create if necessary
@@ -89,6 +98,7 @@ fi
 # generating certs if necessary
 if [ ! -f "/config/keys/letsencrypt/fullchain.pem" ]; then
   echo "Generating new certificate"
+# shellcheck disable=SC2086
   certbot certonly --non-interactive --renew-by-default --standalone --standalone-supported-challenges tls-sni-01 --rsa-key-size 4096 --email "$EMAIL" --agree-tos $URLS
   cd /config/keys/letsencrypt || exit
   openssl pkcs12 -export -out privkey.pfx -inkey privkey.pem -in cert.pem -certfile chain.pem -passout pass:
