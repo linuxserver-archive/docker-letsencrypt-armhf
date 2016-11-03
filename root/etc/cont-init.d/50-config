@@ -26,6 +26,8 @@ cp -R /config/fail2ban/action.d/* /etc/fail2ban/action.d/
 cp /config/fail2ban/jail.local /etc/fail2ban/jail.local
 [[ ! -f /config/crontabs/root ]] && \
 	cp /etc/crontabs/root /config/crontabs/
+[[ ! -f /config/nginx/proxy.conf ]] && \
+	cp /defaults/proxy.conf /config/nginx/proxy.conf
 
 # import user crontabs
 rm /etc/crontabs/*
