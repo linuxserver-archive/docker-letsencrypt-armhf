@@ -11,6 +11,8 @@ The [LinuxServer.io][linuxserverurl] team brings you another container release f
 * [Podcast][podcasturl] covers everything to do with getting the most from your Linux Server plus a focus on all things Docker and containerisation!
 
 # lsioarmhf/letsencrypt
+[![](https://images.microbadger.com/badges/version/lsioarmhf/letsencrypt.svg)](https://microbadger.com/images/lsioarmhf/letsencrypt "Get your own version badge on microbadger.com")[![](https://images.microbadger.com/badges/image/lsioarmhf/letsencrypt.svg)](http://microbadger.com/images/lsioarmhf/letsencrypt "Get your own image badge on microbadger.com")[![Docker Pulls](https://img.shields.io/docker/pulls/lsioarmhf/letsencrypt.svg)][hub][![Docker Stars](https://img.shields.io/docker/stars/lsioarmhf/letsencrypt.svg)][hub][![Build Status](http://jenkins.linuxserver.io:8080/buildStatus/icon?job=Dockers/LinuxServer.io-armhf/lsioarmhf-letsencrypt)](http://jenkins.linuxserver.io:8080/job/Dockers/job/LinuxServer.io-armhf/job/lsioarmhf-letsencrypt/)
+[hub]: https://hub.docker.com/r/lsioarmhf/letsencrypt/
 
 This container sets up an Nginx webserver and reverse proxy with php support and a built-in letsencrypt client that automates free SSL server certificate generation and renewal processes. It also contains fail2ban for intrusion prevention.
 
@@ -69,6 +71,7 @@ In this instance `PUID=1001` and `PGID=1001`. To find yours use `id user` as bel
 ```
 
 ## Setting up the application
+`IMPORTANT... THIS IS THE ARMHF VERSION`
 
 * Before running this container, make sure that the url and subdomains are properly forwarded to this container's host. 
 * Port 443 on the internet side of the router should be forwarded to this container's port 443.
