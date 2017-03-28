@@ -12,7 +12,7 @@ ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 
 # install packages
 RUN \
- apk add --update --no-cache \
+ apk add --no-cache \
 	certbot \
 	curl \
 	fail2ban \
