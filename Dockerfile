@@ -12,10 +12,13 @@ ENV S6_BEHAVIOUR_IF_STAGE2_FAILS=2
 
 # install packages
 RUN \
+ apk add --no-cache --repository http://nl.alpinelinux.org/alpine/edge/main \
+	libxslt && \
  apk add --no-cache \
 	certbot \
 	curl \
 	fail2ban \
+	ip6tables \
 	nginx-mod-http-echo \
 	nginx-mod-http-fancyindex \
 	nginx-mod-http-geoip \
