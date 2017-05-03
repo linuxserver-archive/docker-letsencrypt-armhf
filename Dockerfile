@@ -15,8 +15,7 @@ RUN \
  apk add --no-cache \
  	--repository http://nl.alpinelinux.org/alpine/edge/main \
 	fail2ban \
-	libwebp \
-	libxslt && \
+	libwebp && \
  apk add --no-cache \
 	certbot \
 	curl \
