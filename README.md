@@ -95,6 +95,7 @@ In this instance `PUID=1001` and `PGID=1001`. To find yours use `id user` as bel
 
 ## Versions
 
++ **29.05.17:** Rebase to alpine 3.6.
 + **03.05.17:** Fix log permissions.
 + **03.05.17:** Update to php 7.1x.
 + **18.04.2017:** Add php7-sockets, update fail2ban filter and action defaults
