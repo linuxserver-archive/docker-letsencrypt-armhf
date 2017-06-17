@@ -45,7 +45,6 @@ http://192.168.x.x:8080 would show you what's running INSIDE the container on po
 
 * `-p 443` - the port(s)
 * `-v /config` - all the config files including the webroot reside here
-* `-e EMAIL` - your e-mail address for cert registration
 * `-e URL` - the top url you have control over ("customdomain.com" if you own it, or "customsubdomain.ddnsprovider.com" if dynamic dns)
 * `-e SUBDOMAINS` - subdomains you'd like the cert to cover (comma separated, no spaces) ie. `www,ftp,cloud`
 * `-e PGID` for GroupID - see below for explanation
@@ -53,6 +52,7 @@ http://192.168.x.x:8080 would show you what's running INSIDE the container on po
 * `-e TZ` - timezone ie. `America/New_York`  
   
 _Optional settings:_
+* `-e EMAIL` - your e-mail address for cert registration and notifications
 * `-e DHLEVEL` - dhparams bit value (default=2048, can be set to `1024` or `4096`)
 * `-p 80` - Port 80 forwarding is optional (cert validation is done through 443)
 * `-e ONLY_SUBDOMAINS` - if you wish to get certs only for certain subdomains, but not the main domain (main domain may be hosted on another machine and cannot be validated), set this to `true`
@@ -73,8 +73,9 @@ In this instance `PUID=1001` and `PGID=1001`. To find yours use `id user` as bel
 ## Setting up the application
 `IMPORTANT... THIS IS THE ARMHF VERSION`
 
-* Before running this container, make sure that the url and subdomains are properly forwarded to this container's host. 
-* Port 443 on the internet side of the router should be forwarded to this container's port 443.
+* Before running this container, make sure that the url and subdomains are properly forwarded to this container's host, and that port 443 is not being used by another service on the host (NAS gui, another webserver, etc.).
+* Port 443 on the internet side of the router should be forwarded to this container's port 443 (Required for letsencrypt validation)
+* `--privileged` mode is required for fail2ban to modify iptables
 * If you need a dynamic dns provider, you can use the free provider duckdns.org where the url will be `yoursubdomain.duckdns.org` and the subdomains can be `www,ftp,cloud`
 * The container detects changes to url and subdomains, revokes existing certs and generates new ones during start. It also detects changes to the DHLEVEL parameter and replaces the dhparams file.
 * If you'd like to password protect your sites, you can use htpasswd. Run the following command on your host to generate the htpasswd file `docker exec -it letsencrypt htpasswd -c /config/nginx/.htpasswd <username>`
@@ -95,10 +96,11 @@ In this instance `PUID=1001` and `PGID=1001`. To find yours use `id user` as bel
 
 ## Versions
 
-+ **05.06.17:** Add php7-bz2
-+ **29.05.17:** Rebase to alpine 3.6.
-+ **03.05.17:** Fix log permissions.
-+ **03.05.17:** Update to php 7.1x.
++ **06.16.2017:** Update deprecated certbot option for https validation, make e-mail entry optional, update readme
++ **05.06.2017:** Add php7-bz2
++ **29.05.2017:** Rebase to alpine 3.6.
++ **03.05.2017:** Fix log permissions.
++ **03.05.2017:** Update to php 7.1x.
 + **18.04.2017:** Add php7-sockets, update fail2ban filter and action defaults
 + **27.02.2017:** Add php7-dom, php7-iconv and php7-pdo_sqlite
 + **21.02.2017:** Add php7-xml
