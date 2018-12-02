@@ -76,6 +76,7 @@ RUN \
 	certbot-dns-google \
 	certbot-dns-luadns \
 	certbot-dns-nsone \
+	certbot-dns-ovh \
 	certbot-dns-rfc2136 \
 	certbot-dns-route53 \
 	requests && \
